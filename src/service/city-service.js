@@ -23,8 +23,40 @@ const createCity = async (data) => {
         throw error;
     }
 }
+const deleteCity = async (cityId) => {
+    try {
+        const city = await cityRepository.destroy(cityId);   
+        return city;
+    } catch (error) {
+
+        Logger.error("Something went wrong in the service layer");
+        throw error;
+    }
+}
+
+const getAllCities = async () => {
+    try {
+        const cities = await cityRepository.getAll();   
+        return cities;
+    } catch (error) {
+        Logger.error("Something went wrong in the service layer");
+        throw error;
+    }
+}
+const getCity = async (cityId) => {
+    try {
+        const city = await cityRepository.get(cityId);
+        return city;
+    } catch (error) {
+        Logger.error("Something went wrong in the service layer");
+        throw error;
+    }
+}
 
 
 module.exports = {
     createCity,
+    deleteCity,
+    getAllCities,
+    getCity
 };
