@@ -28,5 +28,44 @@ const getAirplanes = async(req,res,next)=>{
         res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
 }
+const getAirplane = async(req,res,next)=>{
+    try{
+        console.log("Inside get airplane controller", req.params.id);
+        
+        const airplanes = await AirplaneService.getAirplane(req.params.id);
+        SuccessResponse.data = airplanes;
+        res.status(StatusCodes.OK).json(SuccessResponse);
 
-module.exports =  {createAirplane, getAirplanes};
+    }catch(error){
+        ErrorResponse.error = error;
+        ErrorResponse.message = "Something went wrong while fetching airplane";
+        res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
+    }
+}
+
+const destroyAirplane = async(req,res,next)=>{
+    try{
+        console.log("Inside delete airplane controller", req.params.id);
+        const response = await AirplaneService.destroyAirplane(req.params.id);
+        SuccessResponse.data = response;
+        res.status(StatusCodes.OK).json(SuccessResponse);
+    }catch(error){
+        ErrorResponse.error = error;
+        ErrorResponse.message = "Something went wrong while deleting airplane";
+        res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
+    }
+}
+const updateAirplane = async(req,res,next)=>{
+    try{
+        console.log("Inside update airplane controller", req.params.id, req.body);
+        const response = await AirplaneService.updateAirplane(req.params.id, req.body);
+        SuccessResponse.data = response;
+        res.status(StatusCodes.OK).json(SuccessResponse);
+    }catch(error){
+        ErrorResponse.error = error;
+        ErrorResponse.message = "Something went wrong while updating airplane";
+        res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
+    }
+}
+
+module.exports =  {createAirplane, getAirplanes, getAirplane, destroyAirplane, updateAirplane};
