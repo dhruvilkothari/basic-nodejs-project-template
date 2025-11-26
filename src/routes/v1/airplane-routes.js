@@ -22,6 +22,8 @@ const router = require('express').Router();
 
 const { AirplaneController } = require('../../controller/index');
 const { AirplaneMiddleware } = require('../../middleware');
+const {validate} =require("../../validator/validate");
+const {airplaneCreateSchema} =require("../../validator/index");
 
 
 /**
@@ -52,7 +54,7 @@ const { AirplaneMiddleware } = require('../../middleware');
  *       400:
  *         description: Validation error
  */
-router.post('/', AirplaneMiddleware.validateCreateAirplane, AirplaneController.createAirplane);
+router.post('/', validate(airplaneCreateSchema), AirplaneMiddleware.validateCreateAirplane, AirplaneController.createAirplane);
 
 
 /**
