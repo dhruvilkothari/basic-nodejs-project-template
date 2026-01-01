@@ -4,6 +4,7 @@ const AppError = require('../utils/error/app-error');
 const validateCreateAirplane = (req, res, next) => {
     try{
         const { modelNumber, capacity } = req.body;
+        console.log("Validating airplane creation request");
         ErrorResponse.message = "Model Number is required",
         ErrorResponse.error = new AppError(["Model Number is required"], StatusCodes.BAD_REQUEST);
 
